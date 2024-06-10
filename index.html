@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="index" content="follow">
+  
+<title>UPSC Prelims GS Score Calculator</title>
+<meta name="description" content="Calculate your UPSC Prelims General Studies (GS) score with this handy calculator. Enter the number of correct and wrong questions input to get your final score.">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    #scoreContainer {
+        margin-top: 20px;
+    }
+    .animated-card {
+        min-height: 300px;
+        width: 300px;
+        background: #1998ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+        padding: 20px;
+    }
+    .animated-card::before {
+        content: "";
+        position: absolute;
+        height: 400px;
+        width: 400px;
+        background-image: conic-gradient(
+            transparent,
+            transparent,
+            transparent,
+            #74ff51
+        );
+        animation: rotate 5s linear infinite;
+    }
+    .animated-card .inner {
+        position: relative;
+        width: 100%;
+        background: #222;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-family: "Roboto", sans-serif;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    @keyframes rotate {
+        to {
+            transform: rotateZ(360deg);
+        }
+    }
+
+
+
+	 #playStoreLink.play-store-button {
+    	color: white !important;
+          }
+
+      #playStoreLink.play-store-button:hover {
+          background-color: #45a049 !important;
+          color: black !important;
+      }
+
+      
+    .play-store-button {
+        display				: inline-block;
+        padding				: 10px 20px;
+        background-color	: #4CAF50;
+        color				: white;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+
+	
+</style>
+</head>
+<body>
+<h1>UPSC Prelims GS Score Calculator</h1>
+<form id="scoreCalculator">
+    <label for="totalCorrect">Total Correct Questions:</label>
+    <input type="number" id="totalCorrect" required>
+    <label for="totalWrong">Total Wrong Questions:</label>
+    <input type="number" id="totalWrong" required>
+    <button type="button" onclick="calculateScore()">Calculate Score</button>
+</form>
+<div id="result"></div>
+
+<div class="animated-card">
+    <div class="inner">
+        <div id="detailsContainer">Enter your input to calculate Score</div>
+        <a href="https://play.google.com/store/apps/details?id=com.smartupsc.upscmarks" target="_blank" id="playStoreLink" style="display: none;" class="play-store-button">Download on Play Store</a>
+    </div>
+</div>
+
+<script>
+    function calculateScore() {
+        var totalMarks      = 200; // Default total marks
+        var totalCorrect    = document.getElementById('totalCorrect').value;
+        if (parseInt(totalCorrect) != totalCorrect){
+            alert("enter only integer value in Correct Questions Ex: "+parseInt(totalCorrect)+","+(parseInt(totalCorrect)+3)+","+(parseInt(totalCorrect)+8)+".");
+            return;
+        }
+
+        var totalWrong    = document.getElementById('totalWrong').value;
+        if (parseInt(totalWrong) != totalWrong){
+            alert("enter only integer value in Wrong Questions Ex: "+parseInt(totalWrong)+","+(parseInt(totalWrong)+3)+","+(parseInt(totalWrong)+8)+".");
+            return;
+        }
+
+
+        // var totalCorrect = parseInt(document.getElementById('totalCorrect').value);
+        // var totalWrong = parseInt(document.getElementById('totalWrong').value);
+
+        
+        if (totalCorrect    > 100) {
+            alert("Total number of correct questions should be less than 100.");
+            return;
+        }
+
+        if (totalWrong      > 100) {
+            alert("Total number of wrong answers should be less than 100.");
+            return;
+        }
+
+        var finalquestions =  parseInt(totalCorrect) + parseInt(totalWrong) ;
+        // Check if total correct and wrong answers combined are less than 100
+        if (finalquestions >= 100) {
+            alert("Sum of correct questions and wrong answers combined should be less than 100." + finalquestions);
+            return;
+        }
+
+        var correctMarks = totalCorrect * 2;
+        var wrongMarks = (totalWrong * 2) / 3;
+
+        var netScore = correctMarks - wrongMarks;
+
+        /*
+        var resultElement = document.getElementById('result');
+        resultElement.innerHTML = "Total Score: " + netScore + " out of " + totalMarks;
+
+        var animatedScoreContainer = document.getElementById('animatedScoreContainer');
+        animatedScoreContainer.innerHTML = "Total Score: " + netScore;
+        */
+
+        var detailsContainer = document.getElementById('detailsContainer');
+        detailsContainer.innerHTML = `
+            <p>Total Marks: ${totalMarks.toFixed(2)}</p>
+            <p>Actual Marks: ${correctMarks.toFixed(2)} </p> 
+            <p>Negative Marks: ${wrongMarks.toFixed(2)} </p>
+            <p>Final Score: ${netScore.toFixed(2)}</p>
+
+            <p> </p>
+            <p> </p>
+            <p> </p>
+            <p>\n</p>
+
+            <p>for more details download our premium app for free from playstore. </p>
+
+        `;
+        /* (Correct: ${totalCorrect} * 2)*/
+        /* <div id="animatedScoreContainer"></div> */
+
+        // Show the "Download on Play Store" button
+        var playStoreLink = document.getElementById('playStoreLink');
+        playStoreLink.style.display = 'inline-block';
+    }
+</script>
+</body>
+  
+  
+  
+  
+  
+  
+  
+  
+</html>
